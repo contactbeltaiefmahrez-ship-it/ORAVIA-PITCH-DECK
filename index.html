@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ORAVIA — الرحلة الرقمية الحيّة لأسنان المريض</title>
+<meta name="description" content="ORAVIA — الطبقة السريرية التي تحفظ استمرارية رحلة علاج كل مريض.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&family=IBM+Plex+Sans:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#deck">تخطّي إلى العرض</a>
+
+<!-- ═══ ATMOSPHERE ══════════════════════════════════════════════════
+     Background environment in three depths: light fields, the journey
+     line, then a grain veil. Never interactive, never scrolls.       -->
+<div class="atmos" aria-hidden="true">
+  <div class="atmos__field atmos__field--a"></div>
+  <div class="atmos__field atmos__field--b"></div>
+  <div class="atmos__field atmos__field--c"></div>
+  <svg class="atmos__journey" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <linearGradient id="jgrad" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%"   stop-color="#7C6BF5" stop-opacity="0"/>
+        <stop offset="30%"  stop-color="#7C6BF5" stop-opacity=".5"/>
+        <stop offset="65%"  stop-color="#A98BFF" stop-opacity=".34"/>
+        <stop offset="100%" stop-color="#4DD6E8" stop-opacity="0"/>
+      </linearGradient>
+      <filter id="jglow" x="-40%" y="-40%" width="180%" height="180%">
+        <feGaussianBlur stdDeviation="7" result="b"/>
+        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <filter id="soft" x="-60%" y="-60%" width="220%" height="220%">
+        <feGaussianBlur stdDeviation="11"/>
+      </filter>
+      <filter id="canalglow" x="-70%" y="-70%" width="240%" height="240%">
+        <feGaussianBlur stdDeviation="4.5" result="b"/>
+        <feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <linearGradient id="enamel" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#F3F0EA" stop-opacity=".17"/>
+        <stop offset="55%"  stop-color="#9AA3C8" stop-opacity=".07"/>
+        <stop offset="100%" stop-color="#7C6BF5" stop-opacity=".05"/>
+      </linearGradient>
+    </defs>
+    <path id="journey" fill="none" stroke="url(#jgrad)" stroke-width="1.4"
+          stroke-linecap="round" filter="url(#jglow)"/>
+  </svg>
+  <div class="atmos__grain"></div>
+  <div class="atmos__vig"></div>
+</div>
+
+<!-- ═══ CHROME ═════════════════════════════════════════════════════ -->
+<header class="brand">
+  <svg class="mark" viewBox="0 0 34 46" aria-hidden="true"><use href="#oravia-mark"/></svg>
+  <span class="brand__w" dir="ltr">ORAVIA</span>
+</header>
+
+<nav class="rail" aria-label="التنقّل بين الشرائح"><ol id="rail"></ol></nav>
+
+<div class="hud" aria-hidden="true">
+  <span class="hud__n" id="hudNow">01</span>
+  <span class="hud__track"><i id="hudFill"></i></span>
+  <span class="hud__t" id="hudAll">22</span>
+</div>
+
+<div class="ctrl" role="group" aria-label="تنقّل">
+  <button class="ctrl__b" id="prev" type="button" aria-label="السابق"><svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg></button>
+  <button class="ctrl__b" id="next" type="button" aria-label="التالي"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
+</div>
+
+<p class="tip" id="tip">مفاتيح الأسهم للتنقّل · P لوضع العرض</p>
+
+<!-- The mark: a crown arch, a root descending, and the root continuing
+     past the tooth as a threaded path of data nodes. The last node is
+     violet — "here is where this patient stands now." -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <g id="oravia-mark">
+    <path d="M7 14c0-6 4.8-9.6 10-9.6S27 8 27 14c0 3.4-1.7 5.8-3.6 7.7" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
+    <path d="M17 13v13" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"/>
+    <path d="M17 26v13" fill="none" stroke="currentColor" stroke-width="1.3" stroke-dasharray="2 3.6" stroke-linecap="round" opacity=".5"/>
+    <circle cx="17" cy="26" r="1.7" fill="currentColor" opacity=".5"/>
+    <circle cx="17" cy="32" r="1.7" fill="currentColor" opacity=".5"/>
+    <circle cx="17" cy="39" r="2.7" fill="#8B7BF7"/>
+  </g>
+</defs></svg>
+
+<main id="deck" class="deck">
+
+<!-- ══ 01 · HERO ═══════════════════════════════════════════════════ -->
+<section class="slide s-hero" data-t="الافتتاحية">
+  <div class="hero">
+    <div class="hero__art">
+      <svg viewBox="0 0 300 400" class="tooth-art" aria-label="بنية سنّية مجرّدة تعبر فيها قناة مضيئة">
+        <ellipse cx="150" cy="205" rx="120" ry="152" fill="#7C6BF5" opacity=".11" filter="url(#soft)"/>
+        <path class="ta-body" data-draw d="M60 120C60 70 95 48 150 48s90 22 90 72c0 30-8 45-16 62-10 23-18 68-24 118-4 35-10 52-22 52s-18-22-22-52c-3-25-6-42-8-48-2 6-5 23-8 48-4 30-8 52-20 52s-18-17-22-52c-6-50-14-95-24-118-8-17-16-32-16-62Z"
+              fill="url(#enamel)" stroke="#C9CCE4" stroke-width="1.1" stroke-opacity=".4"/>
+        <path class="ta-inner" data-draw d="M84 128c0-34 28-54 66-54s66 20 66 54c0 24-8 38-15 52-9 19-16 56-21 98" fill="none" stroke="#C9CCE4" stroke-width=".8" stroke-opacity=".18"/>
+        <path class="ta-canal" data-draw d="M150 92c0 38-6 66-11 100-5 36-8 82-12 128" fill="none" stroke="#8B7BF7" stroke-width="2" stroke-linecap="round" filter="url(#canalglow)"/>
+        <path class="ta-canal2" data-draw d="M150 92c2 38 8 66 14 100 5 34 9 78 12 122" fill="none" stroke="#8B7BF7" stroke-width="1.2" stroke-linecap="round" stroke-opacity=".4"/>
+        <g class="ta-nodes">
+          <circle cx="150" cy="92" r="3.6"/><circle cx="143" cy="152" r="2.8"/>
+          <circle cx="136" cy="216" r="2.8"/><circle cx="130" cy="272" r="2.8"/>
+          <circle cx="127" cy="320" r="5" class="ta-now"/>
+        </g>
+      </svg>
+    </div>
+    <div class="hero__type">
+      <svg class="hero__mark" viewBox="0 0 34 46" aria-hidden="true"><use href="#oravia-mark"/></svg>
+      <h1 class="hero__name" dir="ltr">ORAVIA</h1>
+      <p class="hero__sub">الرحلة الرقمية الحيّة لأسنان المريض</p>
+      <p class="hero__tag">كل سن. كل حصة. كل خطوة قادمة.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 02 · FRAGMENTATION ══════════════════════════════════════════ -->
+<section class="slide s-frag" data-t="التفتّت">
+  <div class="frag">
+    <div class="frag__field" id="fragField" aria-hidden="true"></div>
+    <div class="frag__core">
+      <p class="eyebrow">المشكلة</p>
+      <h2 class="t-hero">ماذا حدث<br>في آخر حصة؟</h2>
+      <p class="frag__note">سؤال يُطرح عشرات المرّات في اليوم، وإجابته موزّعة على أماكن لا يتحدّث أيّ منها إلى الآخر.</p>
+    </div>
+  </div>
+  <p class="frag__punch">المشكلة ليست نقص المعلومات.<br><em>المشكلة أنّ المعلومات لا تعيش في رحلة واحدة.</em></p>
+</section>
+
+<!-- ══ 03 · THE HIDDEN COST ════════════════════════════════════════ -->
+<section class="slide s-leak" data-t="الكلفة الخفيّة">
+  <div class="w">
+    <p class="eyebrow">الكلفة الخفيّة</p>
+    <h2 class="t-head">المرضى لا يغادرون العيادة.<br>يتسرّبون منها بين الحصص.</h2>
+    <div class="leak">
+      <svg id="funnel" viewBox="0 0 720 320" aria-label="قمع يبيّن تسرّب المرضى بين مراحل العلاج"></svg>
+      <div class="leak__stats">
+        <div class="stat"><p class="stat__n"><span data-count="65.4" data-dec="1">0</span><i>٪</i></p><p class="stat__k">من علاجات الجذور التي <em>بدأت</em> وصلت فعلًا إلى حشو الجذر</p></div>
+        <div class="stat"><p class="stat__n"><span data-count="56.6" data-dec="1">0</span><i>٪</i></p><p class="stat__k">النسبة نفسها في الأرحاء — الأسنان الأكثر تعقيدًا</p></div>
+        <div class="stat stat--red"><p class="stat__n"><span data-count="27">0</span><i>٪</i></p><p class="stat__k">من التهابات الفكّ التي استدعت الإقامة بالمستشفى سببها الأول علاج جذور <em>غير مكتمل</em></p></div>
+      </div>
+    </div>
+    <p class="src"><b class="tag tag--v">معطى موثّق</b> Wigsten et al.، دراسة أترابية 7–9 سنوات على 20 عيادة عمومية بالسويد، <span dir="ltr">International Endodontic Journal</span> · Seppänen et al.، <span dir="ltr">Clinical Oral Investigations</span>. مرجع دولي لا رقم تونسي: يُثبت أنّ عدم اكتمال العلاج ظاهرة موثّقة وقابلة للقياس حتّى داخل نظام صحّي جيّد التوثيق.</p>
+  </div>
+</section>
+
+<!-- ══ 04 · INSIGHT ════════════════════════════════════════════════ -->
+<section class="slide s-insight" data-t="الفكرة">
+  <div class="insight">
+    <svg class="insight__svg" viewBox="0 0 960 140" aria-hidden="true"><g id="ichain"></g></svg>
+    <h2 class="t-hero insight__a">نحن لا نحتاج ملفًّا رقميًّا أفضل.</h2>
+    <h2 class="t-hero insight__b">نحتاج <span class="vio">ذاكرة حيّة</span> لرحلة العلاج.</h2>
+  </div>
+</section>
+
+<!-- ══ 05 · THE SYSTEM ═════════════════════════════════════════════ -->
+<section class="slide s-sys" data-t="النظام">
+  <div class="w">
+    <p class="eyebrow">الحل</p>
+    <h2 class="t-head">كلّ شيء داخل ORAVIA يعيش على سلسلة واحدة.</h2>
+    <div class="sys"><svg id="sysnet" viewBox="0 0 1060 360" aria-label="شبكة تربط المريض بالحالة والسن والحصة والدليل والخطوة القادمة"></svg></div>
+    <p class="src">برمجيّات إدارة العيادات تنمذج: مريض + موعد + عمل طبّي. <em>الحالة العلاجية</em> ككائن مستقلّ له دورة حياة هي الحلقة المفقودة — وهي ما يجعل الاستمرارية قابلة للحساب بدل أن تكون قابلة للتذكّر.</p>
+  </div>
+</section>
+
+<!-- ══ 06 · FOUR ENGINES ═══════════════════════════════════════════ -->
+<section class="slide s-eng" data-t="المحرّكات">
+  <div class="w">
+    <p class="eyebrow">ركائز المنتج</p>
+    <h2 class="t-head">أربعة محرّكات، نظام تشغيل واحد.</h2>
+    <div class="core">
+      <svg id="corenet" viewBox="0 0 860 480" aria-label="نواة ORAVIA تحيط بها أربعة محرّكات"></svg>
+      <div class="core__read" id="coreRead" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 07 · DENTAL MEMORY ══════════════════════════════════════════ -->
+<section class="slide s-mem" data-t="الذاكرة">
+  <div class="mem">
+    <div class="mem__art">
+      <svg viewBox="0 0 260 420" class="tooth-art" aria-label="السن 46 مضاءة وقناتها تمتدّ إلى جدول زمني">
+        <ellipse cx="130" cy="212" rx="98" ry="136" fill="#7C6BF5" opacity=".13" filter="url(#soft)"/>
+        <path class="ta-body" data-draw d="M46 120C46 74 78 54 130 54s84 20 84 66c0 28-8 42-15 58-9 21-17 64-22 111-4 33-9 49-20 49s-17-21-21-49c-3-24-5-40-7-45-2 5-4 21-7 45-4 28-8 49-19 49s-17-16-21-49c-5-47-13-90-22-111-7-16-14-30-14-58Z"
+              fill="url(#enamel)" stroke="#C9CCE4" stroke-width="1.1" stroke-opacity=".44"/>
+        <path class="ta-canal" data-draw d="M130 96c0 36-6 62-11 94-5 34-8 76-11 118" fill="none" stroke="#8B7BF7" stroke-width="2.1" stroke-linecap="round" filter="url(#canalglow)"/>
+        <g class="ta-nodes"><circle cx="130" cy="96" r="3.4"/><circle cx="124" cy="172" r="2.6"/><circle cx="118" cy="250" r="2.6"/><circle cx="112" cy="308" r="4.6" class="ta-now"/></g>
+        <text x="130" y="400" class="ta-fdi" dir="ltr">46</text>
+      </svg>
+    </div>
+    <div class="mem__body">
+      <p class="eyebrow">المحرّك الأول · الذاكرة السنّية</p>
+      <h2 class="t-head">السن كائن سريري طويل العمر،<br>لا خانة في استمارة.</h2>
+      <div class="tline" id="tline"></div>
+      <p class="src">في نموذج البيانات، السن تتبع <em>المريض</em> لا <em>الحالة العلاجية</em>. هذا ما يسمح لتسوّس 2024 وعلاج جذور 2026 وتعويض التاج 2031 بأن يعيشوا على خيط واحد.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 08 · LIVING DENTAL MAP ══════════════════════════════════════ -->
+<section class="slide s-map" data-t="الخريطة الحيّة">
+  <div class="w">
+    <p class="eyebrow">الواجهة السريرية</p>
+    <h2 class="t-head">كلّ سن نقطة معرفة مستقلّة. <span class="dim">اختر أيّ سن.</span></h2>
+    <div class="map">
+      <div class="map__stage">
+        <svg id="arch" viewBox="0 0 700 420" role="group" aria-label="مخطّط الأسنان بترقيم FDI"></svg>
+        <ul class="legend" id="legend"></ul>
+      </div>
+      <aside class="tpanel" id="tpanel" aria-live="polite"></aside>
+    </div>
+    <p class="src">اللون وحده لا ينقل حالة سريرية أبدًا. كلّ حالة تُعرض بلون <em>ورمز ونصّ</em> — شرط سلامة للمريض، لا خيار جمالي.</p>
+  </div>
+</section>
+
+<!-- ══ 09 · TIME MACHINE ═══════════════════════════════════════════ -->
+<section class="slide s-tm" data-t="آلة الزمن">
+  <div class="w">
+    <p class="eyebrow">تجربة مميّزة</p>
+    <h2 class="t-head">نرى كيف تغيّر هذا الفم عبر السنين.</h2>
+    <div class="tm">
+      <div class="tm__track" id="tmTrack" role="group" aria-label="اختيار السنة"></div>
+      <svg id="tmArch" viewBox="0 0 700 260" aria-label="حالة الأسنان في السنة المختارة"></svg>
+      <p class="tm__cap" id="tmCap" aria-live="polite"></p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 10 · VOICE ══════════════════════════════════════════════════ -->
+<section class="slide s-voice" data-t="الصوت">
+  <div class="w">
+    <p class="eyebrow">التوثيق الصوتي</p>
+    <h2 class="t-head">الطبيب يتحدّث. ORAVIA ينظّم. <span class="vio">الطبيب يوافق.</span></h2>
+    <div class="voice">
+      <div class="voice__wave">
+        <svg id="wave" viewBox="0 0 900 130" aria-hidden="true"></svg>
+        <p class="voice__said" id="said"></p>
+        <button class="btn btn--v" id="vrun" type="button">شغّل المثال</button>
+      </div>
+      <div class="voice__struct">
+        <dl class="slots" id="slots"></dl>
+        <div class="gate" id="gate" hidden>
+          <p class="gate__n">لا يدخل أيّ استنتاج آلي إلى السجلّ الرسمي قبل موافقة الطبيب. البوّابة مفروضة في مسار الكتابة نفسه، لا في الواجهة.</p>
+          <div class="gate__a">
+            <button class="btn" id="gedit" type="button">تعديل</button>
+            <button class="btn btn--v" id="gok" type="button">موافقة وحفظ</button>
+          </div>
+        </div>
+        <p class="gate__done" id="gdone" hidden>حُفظ في السجلّ السريري · وقّعته د. سلمى بن عمّار · سُجّل في سجلّ التدقيق</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 11 · TUNISIAN DENTAL SPEECH ═════════════════════════════════ -->
+<section class="slide s-lang" data-t="اللغة">
+  <div class="w">
+    <p class="eyebrow">تمايز استراتيجي</p>
+    <h2 class="t-head">الطبيب لا يحتاج أن يتكلّم مثل الآلة.</h2>
+    <p class="lede">ORAVIA يتعلّم كيف يتحدّث طبيب الأسنان التونسي فعلًا — عربية تونسية تحمل مصطلحًا فرنسيًّا داخل الجملة نفسها.</p>
+    <div class="lang">
+      <p class="lang__said">نعمل <span class="fr" dir="ltr">obturation</span> للـ <span class="num" dir="ltr">46</span> وبعدها <span class="fr" dir="ltr">couronne</span>.</p>
+      <div class="lang__tokens" id="tokens"></div>
+    </div>
+    <p class="src"><b class="tag tag--h">فرضية تقنية</b> المسار القابل للتنفيذ ليس نموذجًا عامًّا للّهجة التونسية، بل تعرّفًا على <em>مفردات مغلقة</em>: ما يقوله الطبيب على الكرسي فضاء صغير ومهيكل — رقم <span dir="ltr">FDI</span>، إجراء من قائمة معلومة، حالة، عَرَض، خطوة قادمة. لا ندّعي أنّ النظام يفهم اللهجة التونسية كاملة اليوم.</p>
+  </div>
+</section>
+
+<!-- ══ 12 · TREATMENT JOURNEY ══════════════════════════════════════ -->
+<section class="slide s-jrn" data-t="رحلة العلاج">
+  <div class="w">
+    <p class="eyebrow">المحرّك الثاني</p>
+    <h2 class="t-head">دائمًا نعرف أين نحن. <span class="dim">والأهمّ: ما الخطوة التالية.</span></h2>
+    <div class="jrn"><svg id="jpath" viewBox="0 0 1120 320" aria-label="مسار منحنٍ يبيّن مراحل الحالة العلاجية"></svg></div>
+    <div class="jrn__meta">
+      <p><span class="k">الحالة</span><span class="v" dir="ltr">ORA-C-0042</span></p>
+      <p><span class="k">المريض</span><span class="v">أحمد بن علي</span></p>
+      <p><span class="k">السن</span><span class="v" dir="ltr">46</span></p>
+      <p class="warn"><span class="k">تنبيه سريري</span><span class="v">المرحلة الجارية تجاوزت مهلتها بـ 6 أيام — المهلة المعتادة بين تحضير القناة والحشو 14 يومًا</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 13 · CONTINUITY ═════════════════════════════════════════════ -->
+<section class="slide s-cont" data-t="الاستمرارية">
+  <div class="w">
+    <p class="eyebrow">المحرّك الثالث</p>
+    <h2 class="t-head">النظام يمسك من يسقط من الأنبوب.</h2>
+    <div class="pipe"><svg id="pipe" viewBox="0 0 1120 400" aria-label="أنبوب المرضى ونقاط التسرّب والمهامّ التي يولّدها النظام"></svg></div>
+    <p class="src">الإشعار لا يكفي. المخرَج مهمّة لها مالك وتاريخ استحقاق ونتيجة. أهمّ كاشف في المنتج بسيط إلى حدّ الإحراج: <em>اكتملت حصة، ولم تُحجز التالية.</em></p>
+  </div>
+</section>
+
+<!-- ══ 14 · PRACTICE INTELLIGENCE ══════════════════════════════════ -->
+<section class="slide s-pulse" data-t="ذكاء العيادة">
+  <div class="w">
+    <p class="eyebrow">المحرّك الرابع</p>
+    <h2 class="t-head">نبض العيادة في شكل واحد.</h2>
+    <div class="pulse">
+      <div class="pulse__core">
+        <svg id="gauge" viewBox="0 0 340 340" aria-label="نسبة اكتمال العلاجات"></svg>
+        <div class="pulse__val"><span id="pv">0</span><i>٪</i><span class="pulse__lbl">نسبة اكتمال العلاجات</span></div>
+      </div>
+      <ul class="pulse__ring" id="pulseRing"></ul>
+    </div>
+    <p class="src">مؤشّر واحد يُحاسَب عليه المنتج: نسبة اكتمال العلاجات. إن نجح، يرتفع هذا الرقم؛ وإن لم يرتفع، فالمنتج لا يعمل. <b class="tag tag--h">بيانات عيادة تجريبية افتراضية</b></p>
+  </div>
+</section>
+
+<!-- ══ 15 · THE DENTIST'S MORNING ══════════════════════════════════ -->
+<section class="slide s-today" data-t="صباح الطبيب">
+  <div class="today">
+    <div class="today__say">
+      <p class="eyebrow">تجربة المنتج</p>
+      <h2 class="t-head">الساعة 08:00.<br>الطبيب يفتح ORAVIA.</h2>
+      <p class="lede">خلال ثوانٍ يعرف يومه كاملًا: من قادم، ولماذا، وأين توقّف كلّ علاج، ومن يستدعي انتباهًا فوريًّا.</p>
+      <p class="src">لا يفتح عشر شاشات. لا يسأل السكرتيرة. لا يعيد بناء القصّة من ذاكرته.</p>
+    </div>
+    <div class="ui" id="uiToday"></div>
+  </div>
+</section>
+
+<!-- ══ 16 · PATIENT EXPERIENCE ═════════════════════════════════════ -->
+<section class="slide s-pat" data-t="المريض">
+  <div class="pat">
+    <div class="pat__say">
+      <p class="eyebrow">تجربة المريض</p>
+      <h2 class="t-head">المريض يحتاج أن يفهم سؤالًا واحدًا:<br><span class="vio">أين أنا في علاجي؟</span></h2>
+      <p class="lede">لا سجلّ سريري كامل، ولا مصطلحات. الخطوة الحالية، والخطوة القادمة، وسبب أهمّيتها.</p>
+      <p class="src">البوّابة تعرض ما وافق الطبيب على مشاركته فقط. الموافقة كائن في قاعدة البيانات له نطاق ومدّة وإمكانية سحب.</p>
+    </div>
+    <div class="glass" id="uiPatient"></div>
+  </div>
+</section>
+
+<!-- ══ 17 · DENTAL PASSPORT ════════════════════════════════════════ -->
+<section class="slide s-pass" data-t="الجواز السنّي">
+  <div class="w">
+    <p class="eyebrow">أصل استراتيجي · أفق بعيد</p>
+    <h2 class="t-head">جواز الأسنان الرقمي.</h2>
+    <div class="pass">
+      <div class="pass__card" id="passCard"></div>
+      <div class="pass__flow">
+        <svg id="consent" viewBox="0 0 420 250" aria-label="تدفّق الإذن: المريض يمنح إذنًا محدّد النطاق لطبيب جديد"></svg>
+        <p class="src"><b class="tag tag--w">قيد التحقّق القانوني</b> مشاركة المعطيات الصحّية بين العيادات ليست مباحة تلقائيًّا. الإذن ونطاقه ومدّته وسحبه كائنات أولى في قاعدة البيانات منذ أوّل ترحيل، لأنّ إقحام الموافقة لاحقًا على مخطّط افترض المشاركة غير ممكن.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 18 · MARKET ═════════════════════════════════════════════════ -->
+<section class="slide s-mkt" data-t="السوق">
+  <div class="w">
+    <p class="eyebrow">السوق</p>
+    <h2 class="t-head">نبدأ من تونس — وهذا ما نعرفه، وما لا نعرفه.</h2>
+    <div class="mkt">
+      <div class="mkt__map"><svg id="tnmap" viewBox="0 0 230 372" aria-label="خريطة تونس ومراكز الممارسة الخاصة"></svg></div>
+      <div class="mkt__read">
+        <ol class="tam" id="tam"></ol>
+        <div class="gapbox">
+          <p class="gapbox__h">فجوة معطيات نعلنها بدل أن نملأها</p>
+          <p>الرقم الوحيد المتاح لعدد أطباء الأسنان في تونس يعود إلى 2016. اتّجاه النموّ واضح — نحو 300 خرّيج محلّي سنويًّا و150 من الخارج — أمّا الرقم المطلق فلا.</p>
+          <p>مسار الحصول عليه محدّد: طلب رسمي من العمادة الوطنية، ثمّ تثبيت من الخريطة الجهوية التي أعلنت وزارة الصحة والعمادة إعدادها في ماي 2025.</p>
+          <p class="gapbox__w">اختلاق مقام يقنع في عشر دقائق ويُسقط كلّ ما تبقّى في العشرين التالية.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 19 · COMPETITION ════════════════════════════════════════════ -->
+<section class="slide s-comp" data-t="المنافسة">
+  <div class="w">
+    <p class="eyebrow">المشهد التنافسي</p>
+    <h2 class="t-head">السوق مشغول، والمنافس التونسي جيّد ورخيص.</h2>
+    <div class="comp">
+      <div class="matrix"><svg id="mtx" viewBox="0 0 520 470" aria-label="مصفوفة تموضع: الأفقي عمق التوطين التونسي، العمودي من إدارة العيادة إلى ذكاء رحلة العلاج"></svg></div>
+      <div class="comp__read">
+        <h3>ما يحلّونه فعلًا — ولا نأخذ عليه أيّ فضل</h3>
+        <p>المواعيد، مخطّط الأسنان، الفوترة بالدينار، الوصفات، الوثائق، والولوج من الهاتف. <b dir="ltr">DoliDentiste</b> يشحن 144 عملًا طبّيًّا من تعريفة <span dir="ltr">STMDLP</span> برموز <span dir="ltr">DCH</span> الرسمية، ومخطّطًا بثماني حالات، و42 دواءً معبّأً مسبقًا. هذه أرضية دخول، وشحنها شرط لا فضيلة.</p>
+        <h3>ما لا يحلّه أحد</h3>
+        <p>مخطّط بثماني حالات يسجّل ما <em>هي</em> السن اليوم. لا يسجّل كيف وصلت، ولا أين وقفت الحالة، ولا من سقط من علاج لم يكتمل. لغة تسويقهم كلّها عن <em>الحالة</em> والإدارة. لا واحد منهم يتحدّث عن <em>الاستمرارية</em>.</p>
+        <p class="src">لا نفترض أنّنا نفوز بميزات أكثر. نفوز بنموذج منتج مختلف.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 20 · BUSINESS MODEL ═════════════════════════════════════════ -->
+<section class="slide s-biz" data-t="نموذج العمل">
+  <div class="w">
+    <p class="eyebrow">نموذج العمل</p>
+    <h2 class="t-head">أمام مرساة سعرية معلنة في السوق.</h2>
+    <div class="anchor">
+      <p class="anchor__h">السعر المرجعي الذي يحمله الطبيب التونسي في ذهنه</p>
+      <p class="anchor__b"><b dir="ltr">DoliDentiste</b>: 500 د.ت تركيب لمرّة واحدة، ثمّ <b>80 د.ت شهريًّا</b> — أو 720 د.ت سنويًّا. السنة الأولى 1,460 د.ت، ثمّ 960 د.ت سنويًّا. <span class="anchor__s">تسعيرة منشورة على موقعهم.</span></p>
+      <p class="anchor__r">لا يمكن الفوز بحرب أسعار أمام هذا. المحادثة الوحيدة التي تحتمل سقفًا أعلى هي: <em>كم من العلاجات المتوقّفة استعادت عيادتك؟</em></p>
+    </div>
+    <div class="tiers" id="tiers"></div>
+    <p class="src"><b class="tag tag--h">فرضية تسعير أوّلية — خاضعة للتحقّق عبر التجريب</b> لن يُعرض رقم على عيادة قبل أن نُريها قيمة العلاجات التي استعادتها فعلًا خلال فترة التجريب.</p>
+  </div>
+</section>
+
+<!-- ══ 21 · ROADMAP ════════════════════════════════════════════════ -->
+<section class="slide s-road" data-t="خارطة الطريق">
+  <div class="w">
+    <p class="eyebrow">خارطة الطريق</p>
+    <h2 class="t-head">الخطّ نفسه، يمتدّ.</h2>
+    <div class="road"><svg id="road" viewBox="0 0 1120 360" aria-label="خارطة طريق على شكل مسار متّصل"></svg></div>
+    <p class="src">التجسيم ثلاثي الأبعاد والصوت في المرحلة الثانية عمدًا: قوس ثلاثي الأبعاد لا يحمل بيانات طولية زينةٌ لا قدرة. المخطّط ثنائي الأبعاد يؤدّي كلّ وظيفة سريرية، والثلاثي يضيف فهمًا لا إمكانًا.</p>
+  </div>
+</section>
+
+<!-- ══ 22 · CLOSE ══════════════════════════════════════════════════ -->
+<section class="slide s-end" data-t="الخاتمة">
+  <div class="end">
+    <svg class="end__mark" viewBox="0 0 34 46" aria-hidden="true"><use href="#oravia-mark"/></svg>
+    <h2 class="t-hero end__a">من برنامج لإدارة العيادة…</h2>
+    <h2 class="t-hero end__b">…إلى <span class="vio">الذاكرة الرقمية الحيّة</span> لطبّ الأسنان.</h2>
+    <p class="end__tag" dir="ltr">Every tooth. Every visit. Every next step.</p>
+    <p class="end__legal">ORAVIA مساعد للطبيب: لا يشخّص ولا يصف ولا يتّخذ قرارًا سريريًّا. البنية مصمّمة على أساس القانون الأساسي عدد 63 لسنة 2004 ومداولة الهيئة الوطنية لحماية المعطيات الشخصية عدد 4 المؤرّخة في 5 سبتمبر 2018؛ لا يُدَّعى أيّ امتثال قانوني قبل مصادقة مستشار قانوني تونسي مختصّ. كلّ المرضى والمعطيات المعروضة خيالية.</p>
+  </div>
+</section>
+
+</main>
+<script src="app.js"></script>
+</body>
+</html>
